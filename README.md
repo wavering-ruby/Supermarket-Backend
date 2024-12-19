@@ -1,7 +1,14 @@
-# SupermarketBackending
+# Supermarket - Backend
 
 ## About
-This repository have a back-end of a simple supermarket, where we have the relationship between invoice (NF), product and the client. 
+This repository contains a back-end of a simple supermarket, showing the relationships between invoices (NF), products and customers.
+
+## What is needed
+• To run this project, you need to configure Postman to use port specified in the configuration. If you want to see the documetation click this link: https://www.postman.com/waveringruby/my-workspace/collection/ccie99a/supermarket?action=share&creator=39610508.
+
+• The database server used is PostgreSQL, so, you need PgAdmin to view the tables. In the DDL folder, you will find some SQL functions to creat and drop the tables needed to run this project.
+
+• Remember to install Spring Boot and the technologies mentioned in the "Usage Technology" section.
 
 ## Usage Technology
 ![Springboot](https://img.shields.io/badge/Springboot-6DB33F?style=for-the-badge&logo=Springboot&logoColor=white&labelColor=6DB33F)
@@ -13,5 +20,9 @@ This repository have a back-end of a simple supermarket, where we have the relat
 | **Name**| **LinkedIn** |
 |:----------------------:|:----------------------------------------------------------:|
 | Angelo Salvatti | [![LinkedIn](https://img.shields.io/badge/LinkedIn-blue?style=flat-square&logo=linkedin&labelColor=blue)](https://www.linkedin.com/in/angelo-salvatti-2a991023a/) |
-| Mateus Gabriel Mendes de Power | [![LinkedIn](https://img.shields.io/badge/LinkedIn-blue?style=flat-square&logo=linkedin&labelColor=blue)](https://www.linkedin.com/in/mateus-gabriel-mendes-de-paula-9589891b2/)|
+| Mateus Gabriel Mendes de Paula | [![LinkedIn](https://img.shields.io/badge/LinkedIn-blue?style=flat-square&logo=linkedin&labelColor=blue)](https://www.linkedin.com/in/mateus-gabriel-mendes-de-paula-9589891b2/)|
 | Pedro Alves de Moraes Medeiros | [![LinkedIn](https://img.shields.io/badge/LinkedIn-blue?style=flat-square&logo=linkedin&labelColor=blue)](https://www.linkedin.com/in/pedro-alves-de-moraes-medeiros-775a9a268/) |
+
+<h4>
+If you have any questions, I can help you. Just send me a message through the LinkedIn link (I'm Mateus Gabriel Mendes de Paula). I'll be happy to solve you with any issues. :)
+</h4>
