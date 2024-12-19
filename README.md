@@ -5,8 +5,9 @@ This repository have a back-end of a simple supermarket, where we have the relat
 
 ## Usage Technology
 ![Springboot](https://img.shields.io/badge/Springboot-6DB33F?style=for-the-badge&logo=Springboot&logoColor=white&labelColor=6DB33F)
-![PostgreeSQL](https://img.shields.io/badge/PostgreeSQL-4169E1?style=for-the-badge&logo=postgreSQL&logoColor=white&labelColor=4169E1)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-4169E1?style=for-the-badge&logo=postgreSQL&logoColor=white&labelColor=4169E1)
 ![Postman](https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=postman&logoColor=white&labelColor=FF6C37)
+![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black&labelColor=F7DF1E)
 
 ## Team
 | **Name**| **LinkedIn** |
