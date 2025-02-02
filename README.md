@@ -29,11 +29,13 @@ If you have any questions, I can help you. Just send me a message through the Li
 
 ## Details of Code
 
-### Controller
+### Cliente (Client)
+
+#### Controller
 
 Basically, for each table in DER relatioship, one controller is created to do the CRUD commands, like Put, Post, Delete or Get
 
-For exemple, the table Cliente (Client in english) have to Get's.
+For exemple, the table Cliente have to Get's.
 
 ```JAVASCRIPT
 @GetMapping
