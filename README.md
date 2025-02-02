@@ -26,3 +26,5 @@ This repository contains a back-end of a simple supermarket, showing the relatio
 <h4>
 If you have any questions, I can help you. Just send me a message through the LinkedIn link (I'm Mateus Gabriel Mendes de Paula). I'll be happy to solve you with any issues. :)
 </h4>
+
+## Details of Code
