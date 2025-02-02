@@ -36,21 +36,21 @@ Basically, for each table in DER relatioship, one controller is created to do th
 For exemple, the table Cliente (Client in english) have to Get's.
 
 ```JAVASCRIPT
-    @GetMapping
-    public ResponseEntity getAllClientes(){
-        var AllClientes = clienteRepository.findAll();
-        return ResponseEntity.ok(AllClientes);
-    }
+@GetMapping
+public ResponseEntity getAllClientes(){
+    var AllClientes = clienteRepository.findAll();
+    return ResponseEntity.ok(AllClientes);
+}
 ```
 
 This Get mapping is resposible to show all registers on the Cliente table. 
 
 ```JAVASCRIPT
 @GetMapping("/compra-cli")
-    public List<QuantidadeTotalCompra> QuantidadeTotalCompra(){
-        List<QuantidadeTotalCompra> valor_compra_cliente = clienteRepository.QuantidadeTotalCompra();
-        return valor_compra_cliente;
-    }
+public List<QuantidadeTotalCompra> QuantidadeTotalCompra(){
+    List<QuantidadeTotalCompra> valor_compra_cliente = clienteRepository.QuantidadeTotalCompra();
+    return valor_compra_cliente;
+}
 ```
 
 This Get is responsible to show the user a relatory of quantity of itens bought by a client. Like the example below:
