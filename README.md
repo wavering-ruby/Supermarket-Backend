@@ -35,6 +35,7 @@ If you have any questions, I can help you. Just send me a message through the Li
 
 Basically, for each table in DER relatioship, one controller is created to do the CRUD commands, like Put, Post, Delete or Get
 
+##### Get
 For exemple, the table Cliente have to Get's.
 
 ```JAVASCRIPT
@@ -55,4 +56,49 @@ public List<QuantidadeTotalCompra> QuantidadeTotalCompra(){
 }
 ```
 
-This Get is responsible to show the user a relatory of quantity of itens bought by a client. Like the example below:
+##### Post
+
+Responsible for add a new register to the data base table. If the request body it's ok, basically just add a new register, if didn't, just return a default "Error" message to the user.
+
+```JAVASCRIPT
+@PostMapping("/novo-cliente")
+public ResponseEntity<Cliente> RegistrarProduto(@RequestBody @Valid RequestCliente data){
+    Cliente newCliente = new Cliente(data);
+
+    clienteRepository.save(newCliente);
+
+    // Apenas retornando uma mensagem para o postman inserir um novo produto
+    return ResponseEntity.ok(newCliente);
+}
+```
+
+
+##### Put
+
+Responsible for updating a table record, based on a number sent by the front-end. The number is for the primary-key *codigo* (can named *id* to). First of all she search in the column (primary-key) for the number, if didn't find anything, the code will return a default "Not Found" menssage. If is true, then the register is updated and saved in the data base.
+
+```JAVASCRIPT
+@PutMapping("/atualizar/{codigo}")
+public ResponseEntity<?> AtualizarCliente(@PathVariable Integer codigo, @RequestBody @Valid RequestCliente data){
+    Optional<Cliente> clienteAtualizar = clienteRepository.findById(codigo);
+
+    if(clienteAtualizar.isEmpty()){
+        return ResponseEntity.notFound().build();            
+    } else {
+        Cliente clienteAtualizado = clienteAtualizar.get();
+
+        // Após verificar se o valor pesquisado não está vazio, ele vai pegar o produto que ele quer atualizar (pesquisado anteriormente pelo o id)
+        // e vai substituir os valores, retornando o "produtoAtualizado"
+        clienteAtualizado.setCli_nome(data.cli_nome());
+        clienteAtualizado.setCli_telefone(data.cli_telefone());
+        clienteAtualizado.setCli_email(data.cli_email());
+        clienteAtualizado.setCli_endereco(data.cli_endereco());
+        
+        // Aqui ele está salvando as alterações que foram feitas pelo o postman
+        clienteRepository.save(clienteAtualizado);
+
+        return ResponseEntity.ok(clienteAtualizado);
+    }
+}
+```
+
