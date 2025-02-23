@@ -1,6 +1,6 @@
 # Supermarket - Backend
 
-## Abo
+## About
 This repository contains a back-end of a simple supermarket, showing the relationships between invoices (NF), products and customers.
 
 ## What is needed
