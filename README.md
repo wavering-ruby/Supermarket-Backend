@@ -3,6 +3,8 @@
 ## About
 This repository contains a back-end of a simple supermarket, showing the relationships between invoices (NF), products and customers.
 
+---
+
 ## What is needed
 • To run this project, you need to configure Postman to use port specified in the configuration. If you want to see the documetation click this link: https://www.postman.com/waveringruby/my-workspace/collection/ccie99a/supermarket?action=share&creator=39610508.
 
@@ -10,11 +12,15 @@ This repository contains a back-end of a simple supermarket, showing the relatio
 
 • Remember to install Spring Boot and the technologies mentioned in the "Usage Technology" section.
 
+---
+
 ## Usage Technology
 ![Springboot](https://img.shields.io/badge/Springboot-6DB33F?style=for-the-badge&logo=Springboot&logoColor=white&labelColor=6DB33F)
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-4169E1?style=for-the-badge&logo=postgreSQL&logoColor=white&labelColor=4169E1)
 ![Postman](https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=postman&logoColor=white&labelColor=FF6C37)
 ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black&labelColor=F7DF1E)
+
+---
 
 ## Team
 | **Name**| **LinkedIn** |
@@ -27,13 +33,17 @@ This repository contains a back-end of a simple supermarket, showing the relatio
 If you have any questions, I can help you. Just send me a message through the LinkedIn link (I'm Mateus Gabriel Mendes de Paula). I'll be happy to solve you with any issues. :)
 </h4>
 
+---
+
 ## Details of Code
 
 ### Cliente (Client)
 
 #### Controller
 
-Basically, for each table in DER relatioship, one controller is created to do the CRUD commands, like Put, Post, Delete or Get
+Basically, for each table in DER relatioship, one controller is created to do the CRUD commands, like Put, Post, Delete or Get.
+
+---
 
 ##### Get
 For exemple, the table Cliente have to Get's.
@@ -56,6 +66,8 @@ public List<QuantidadeTotalCompra> QuantidadeTotalCompra(){
 }
 ```
 
+---
+
 ##### Post
 
 Responsible for add a new register to the data base table. If the request body it's ok, basically just add a new register, if didn't, just return a default "Error" message to the user.
@@ -72,6 +84,7 @@ public ResponseEntity<Cliente> RegistrarProduto(@RequestBody @Valid RequestClien
 }
 ```
 
+---
 
 ##### Put
 
@@ -102,3 +115,4 @@ public ResponseEntity<?> AtualizarCliente(@PathVariable Integer codigo, @Request
 }
 ```
 
+---
