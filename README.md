@@ -124,3 +124,105 @@ public ResponseEntity<?> AtualizarCliente(@PathVariable Integer codigo, @Request
 ```
 
 ---
+
+### Funcionario (Employee)
+
+#### Controller
+
+For each table in the DER relationship, a controller is created to execute CRUD commands such as Put, Post, Delete, and Get.
+
+---
+
+##### Get
+
+The example below returns all records from the table `Funcionario`.
+
+```java
+@GetMapping
+public ResponseEntity getAllFuncionarios(){
+    var AllFuncionarios = funcionarioRepository.findAll();
+    return ResponseEntity.ok(AllFuncionarios);
+}
+```
+
+This Get mapping is responsible for displaying all records in the table `Funcionario`.
+
+```java
+@GetMapping("/totalporcargo")
+public List<FuncionarioporCargoDTO> FuncionarioporCargoDTO() {
+    List<FuncionarioporCargoDTO> TotalFuncionarios = funcionarioRepository.FuncionarioporCargo();
+    return TotalFuncionarios;
+}
+```
+
+---
+
+##### Post
+
+Responsible for adding a new record to the database table. If the request body is correct, the record will be inserted. Otherwise, a standard error message will be returned to the user.
+
+```java
+@PostMapping("/novo-funcionario")
+public ResponseEntity<Funcionario> RequestFuncionario(@RequestBody @Valid RequestFuncionario data){
+    Funcionario newFuncionario = new Funcionario(data);
+
+    funcionarioRepository.save(newFuncionario);
+
+    // Apenas retornando uma mensagem para o Postman inserir um novo funcionário
+    return ResponseEntity.ok(newFuncionario);
+}
+```
+
+---
+
+##### Put
+
+Responsible for updating a record in the table based on a number sent by the front-end. This number corresponds to the primary key *code* (which can also be called *id*). First, the column (primary key) is searched for the number entered. If not found, returns a standard "Not Found" message. Otherwise, the record is updated and saved in the database.
+
+```java
+@PutMapping("/atualizar/{codigo}")
+public ResponseEntity<?> AtualizarFuncionario(@PathVariable Integer codigo, @RequestBody @Valid RequestFuncionario data){
+    Optional<Funcionario> funcionarioAtualizar = funcionarioRepository.findById(codigo);
+
+    if(funcionarioAtualizar.isEmpty()){
+        return ResponseEntity.notFound().build();            
+    } else {
+        Funcionario funcionarioAtualizado = funcionarioAtualizar.get();
+
+        // Após verificar que o valor pesquisado não está vazio, os valores do funcionário são atualizados
+        funcionarioAtualizado.setFun_email(data.fun_email());
+        funcionarioAtualizado.setFun_nome(data.fun_nome());
+        funcionarioAtualizado.setFun_cargo(data.fun_cargo());
+        
+        // Salva as alterações feitas pelo Postman
+        funcionarioRepository.save(funcionarioAtualizado);
+
+        return ResponseEntity.ok(funcionarioAtualizado);
+    }
+}
+```
+
+---
+
+##### Delete
+
+Responsible for removing an employee from the database, as long as he does not have an associated Invoice (NF). If there is an associated NF, it returns an error message stating that the employee cannot be removed until the NF is deleted.
+
+```java
+@DeleteMapping("/remover/{codigo}")
+public ResponseEntity RemoverCliente(@PathVariable Integer codigo){
+    boolean existeNF = nfRepository.existsByFuncionario_funCodigo(codigo);
+    if(existeNF){
+        return ResponseEntity.badRequest().body("Funcionario não pode ser removido enquanto houver NF em seu nome.");
+    }
+
+    Optional<Funcionario> funcionario = funcionarioRepository.findById(codigo);
+    if(funcionario.isEmpty()){
+        return ResponseEntity.notFound().build();
+    }
+
+    funcionarioRepository.deleteById(codigo);
+    return ResponseEntity.noContent().build();
+}
+```
+
