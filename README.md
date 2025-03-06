@@ -226,3 +226,200 @@ public ResponseEntity RemoverCliente(@PathVariable Integer codigo){
 }
 ```
 
+---
+
+### Funcionario (Employee) e Nota Fiscal (Invoice)
+
+#### Controller
+
+Para cada tabela no relacionamento do DER, um controlador é criado para executar os comandos CRUD, como Put, Post, Delete e Get.
+
+---
+
+### Funcionario Controller
+
+##### Get
+
+O exemplo abaixo retorna todos os registros da tabela `Funcionario`.
+
+```java
+@GetMapping
+public ResponseEntity getAllFuncionarios(){
+    var AllFuncionarios = funcionarioRepository.findAll();
+    return ResponseEntity.ok(AllFuncionarios);
+}
+```
+
+Esse mapeamento Get é responsável por exibir todos os registros na tabela `Funcionario`.
+
+```java
+@GetMapping("/totalporcargo")
+public List<FuncionarioporCargoDTO> FuncionarioporCargoDTO() {
+    List<FuncionarioporCargoDTO> TotalFuncionarios = funcionarioRepository.FuncionarioporCargo();
+    return TotalFuncionarios;
+}
+```
+
+---
+
+##### Post
+
+Responsável por adicionar um novo registro na tabela do banco de dados. Se o corpo da requisição estiver correto, o registro será inserido. Caso contrário, será retornada uma mensagem de erro padrão ao usuário.
+
+```java
+@PostMapping("/novo-funcionario")
+public ResponseEntity<Funcionario> RequestFuncionario(@RequestBody @Valid RequestFuncionario data){
+    Funcionario newFuncionario = new Funcionario(data);
+
+    funcionarioRepository.save(newFuncionario);
+
+    return ResponseEntity.ok(newFuncionario);
+}
+```
+
+---
+
+##### Put
+
+Responsável por atualizar um registro na tabela com base em um número enviado pelo front-end.
+
+```java
+@PutMapping("/atualizar/{codigo}")
+public ResponseEntity<?> AtualizarFuncionario(@PathVariable Integer codigo, @RequestBody @Valid RequestFuncionario data){
+    Optional<Funcionario> funcionarioAtualizar = funcionarioRepository.findById(codigo);
+
+    if(funcionarioAtualizar.isEmpty()){
+        return ResponseEntity.notFound().build();            
+    } else {
+        Funcionario funcionarioAtualizado = funcionarioAtualizar.get();
+
+        funcionarioAtualizado.setFun_email(data.fun_email());
+        funcionarioAtualizado.setFun_nome(data.fun_nome());
+        funcionarioAtualizado.setFun_cargo(data.fun_cargo());
+        
+        funcionarioRepository.save(funcionarioAtualizado);
+
+        return ResponseEntity.ok(funcionarioAtualizado);
+    }
+}
+```
+
+---
+
+##### Delete
+
+Responsável por remover um funcionário da base de dados, desde que ele não tenha uma Nota Fiscal (NF) associada.
+
+```java
+@DeleteMapping("/remover/{codigo}")
+public ResponseEntity RemoverCliente(@PathVariable Integer codigo){
+    boolean existeNF = nfRepository.existsByFuncionario_funCodigo(codigo);
+    if(existeNF){
+        return ResponseEntity.badRequest().body("Funcionario não pode ser removido enquanto houver NF em seu nome.");
+    }
+
+    Optional<Funcionario> funcionario = funcionarioRepository.findById(codigo);
+    if(funcionario.isEmpty()){
+        return ResponseEntity.notFound().build();
+    }
+
+    funcionarioRepository.deleteById(codigo);
+    return ResponseEntity.noContent().build();
+}
+```
+
+---
+
+### Nota Fiscal Controller
+
+##### Get
+
+Retorna todas as notas fiscais registradas no banco de dados.
+
+```java
+@GetMapping
+public ResponseEntity getAllNf(){
+    var AllNf = nfRepository.findAll();
+    return ResponseEntity.ok(AllNf);
+}
+```
+
+---
+
+##### Post
+
+Cria uma nova nota fiscal associada a um cliente e a um funcionário.
+
+```java
+@PostMapping("nova-nf")
+public ResponseEntity<Nf> criarNotaFiscal(@RequestBody RequestNf data) {
+    Cliente cliente = clienteRepository.findById(data.getCli_codigo())
+            .orElseThrow(() -> new RuntimeException("Cliente não encontrado com o ID: " + data.getCli_codigo()));
+
+    Funcionario funcionario = funcionarioRepository.findById(data.getFun_codigo())
+            .orElseThrow(() -> new RuntimeException("Funcionário não encontrado com o ID: " + data.getFun_codigo()));
+
+    Nf newNf = new Nf(data.getNf_data_emissao(), data.getNf_total());
+    newNf.setCliente(cliente);
+    newNf.setFuncionario(funcionario);
+
+    Nf notaFiscalCriada = nfRepository.save(newNf);
+    return ResponseEntity.ok(notaFiscalCriada);
+}
+```
+
+---
+
+##### Put
+
+Atualiza uma nota fiscal com base no ID informado.
+
+```java
+@PutMapping("atualizar/{id}")
+public ResponseEntity<Nf> atualizarNotaFiscal(@PathVariable Integer id, @RequestBody RequestNf data) {
+    Nf notaFiscalExistente = nfRepository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Nota Fiscal não encontrada com o ID: " + id));
+
+    if (data.getCli_codigo() != null) {
+        Cliente cliente = clienteRepository.findById(data.getCli_codigo())
+                .orElseThrow(() -> new RuntimeException("Cliente não encontrado com o ID: " + data.getCli_codigo()));
+        notaFiscalExistente.setCliente(cliente);
+    }
+
+    if (data.getFun_codigo() != null) {
+        Funcionario funcionario = funcionarioRepository.findById(data.getFun_codigo())
+                .orElseThrow(() -> new RuntimeException("Funcionário não encontrado com o ID: " + data.getFun_codigo()));
+        notaFiscalExistente.setFuncionario(funcionario);
+    }
+
+    if (data.getNf_data_emissao() != null) {
+        notaFiscalExistente.setNf_data_emissao(data.getNf_data_emissao());
+    }
+
+    if (data.getNf_total() != null) {
+        notaFiscalExistente.setNf_total(data.getNf_total());
+    }
+
+    Nf notaFiscalAtualizada = nfRepository.save(notaFiscalExistente);
+    return ResponseEntity.ok(notaFiscalAtualizada);
+}
+```
+
+---
+
+##### Delete
+
+Remove uma nota fiscal do banco de dados.
+
+```java
+@DeleteMapping("remover/{id}")
+public ResponseEntity<String> excluirNotaFiscal(@PathVariable Integer id) {
+    Nf notaFiscal = nfRepository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Nota Fiscal não encontrada com o ID: " + id));
+
+    nfRepository.delete(notaFiscal);
+    return ResponseEntity.ok("Nota Fiscal com ID " + id + " excluída com sucesso.");
+}
+```
+
+---
