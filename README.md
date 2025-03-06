@@ -334,7 +334,7 @@ public ResponseEntity RemoverCliente(@PathVariable Integer codigo){
 
 ##### Get
 
-Retorna todas as notas fiscais registradas no banco de dados.
+Returns all invoices registered in the database.
 
 ```java
 @GetMapping
@@ -348,7 +348,7 @@ public ResponseEntity getAllNf(){
 
 ##### Post
 
-Cria uma nova nota fiscal associada a um cliente e a um funcionário.
+Creates a new invoice associated with a customer and an employee.
 
 ```java
 @PostMapping("nova-nf")
@@ -372,7 +372,7 @@ public ResponseEntity<Nf> criarNotaFiscal(@RequestBody RequestNf data) {
 
 ##### Put
 
-Atualiza uma nota fiscal com base no ID informado.
+Updates an invoice based on the entered ID.
 
 ```java
 @PutMapping("atualizar/{id}")
@@ -409,7 +409,7 @@ public ResponseEntity<Nf> atualizarNotaFiscal(@PathVariable Integer id, @Request
 
 ##### Delete
 
-Remove uma nota fiscal do banco de dados.
+Removes an invoice from the database.
 
 ```java
 @DeleteMapping("remover/{id}")
