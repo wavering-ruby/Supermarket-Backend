@@ -27,11 +27,15 @@ This repository contains a back-end of a simple supermarket, showing the relatio
 ---
 
 ## Team
+<div align="center">
+
 | **Name**| **LinkedIn** |
 |:----------------------:|:----------------------------------------------------------:|
 | Angelo Salvatti | [![LinkedIn](https://img.shields.io/badge/LinkedIn-blue?style=flat-square&logo=linkedin&labelColor=blue)](https://www.linkedin.com/in/angelo-salvatti-2a991023a/) |
 | Mateus Gabriel Mendes de Paula | [![LinkedIn](https://img.shields.io/badge/LinkedIn-blue?style=flat-square&logo=linkedin&labelColor=blue)](https://www.linkedin.com/in/mateus-gabriel-mendes-de-paula-9589891b2/)|
 | Pedro Alves de Moraes Medeiros | [![LinkedIn](https://img.shields.io/badge/LinkedIn-blue?style=flat-square&logo=linkedin&labelColor=blue)](https://www.linkedin.com/in/pedro-alves-de-moraes-medeiros-775a9a268/) |
+
+</div>
 
 <h4>
 If you have any questions, I can help you. Just send me a message through the LinkedIn link (I'm Mateus Gabriel Mendes de Paula). I'll be happy to solve you with any issues. :)
